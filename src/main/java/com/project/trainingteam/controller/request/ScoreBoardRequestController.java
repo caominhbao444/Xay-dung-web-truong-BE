@@ -12,18 +12,18 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/request/score-board/")
 public class ScoreBoardRequestController {
 
     private ScoreBoardRequestService scoreBoardRequestService;
 
-    @PostMapping("/v2/request/score-board/create/{letterId}/{letterTypeName}")
+    @PostMapping("/create/{letterId}/{letterTypeName}")
     public ResponseEntity<List<ScoreBoardRequest>> createdListScoreBoardRequest(@PathVariable("letterId")Long letterId,@PathVariable("letterTypeName")String letterTypeName, @RequestPart("scoreboard") ScoreBoardRequest[] scoreBoardRequest) throws Exception {
         List<ScoreBoardRequest> createdListScoreBoardRequest = scoreBoardRequestService.createdListScoreBoardRequest(letterId,letterTypeName,scoreBoardRequest);
         return new ResponseEntity<>(createdListScoreBoardRequest, HttpStatus.CREATED);
     }
 
-    @GetMapping("/v2/request/score-board/find/{letterId}")
+    @GetMapping("/find/{letterId}")
     public ResponseEntity<List<ScoreBoardRequest>> findScoreBoardRequestByLetterId(@PathVariable("letterId")Long letterId){
         List<ScoreBoardRequest> scoreBoardRequestList = scoreBoardRequestService.findScoreBoardRequestByLetterId(letterId);
         return new ResponseEntity<>(scoreBoardRequestList,HttpStatus.OK);

@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/semester")
 public class SemesterController {
 
     private SemesterService semesterService;
 
-    @PostMapping("/v2/semester/create")
+    @PostMapping("/create")
     public ResponseEntity<SemesterDto> createdSemester(@RequestBody Semester req) throws Exception {
         SemesterDto createdSemester = semesterService.createdSemester(req);
         return new ResponseEntity<>(createdSemester, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v2/semester/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<SemesterDto> updatedSemester(@PathVariable("id")Long id, @RequestBody Semester req) throws Exception {
         req.setId(id);
         SemesterDto updatedSemester = semesterService.updatedSemester(req);
         return new ResponseEntity<>(updatedSemester, HttpStatus.CREATED);
     };
 
-    @GetMapping("/v2/semester/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<SemesterDto>> getAllSemester(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                   @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                   @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -40,7 +40,7 @@ public class SemesterController {
         return new ResponseEntity<>(semesterDtoPage, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v2/semester/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedSemester(@PathVariable("id") Long id)throws Exception{
         semesterService.deletedSemester(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

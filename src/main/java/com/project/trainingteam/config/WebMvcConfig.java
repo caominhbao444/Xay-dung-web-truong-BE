@@ -10,16 +10,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
 
-    @Autowired
-    private AccessControlInterceptor accessControlInterceptor;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessControlInterceptor)
-                .excludePathPatterns("/api/auth/token")
-                .excludePathPatterns("/swagger-ui.html")
-                .excludePathPatterns("/swagger-ui/**")
-                .excludePathPatterns("/v3/api-docs/**")
-                .excludePathPatterns("/v3/api-docs.yaml");
-    }
+//    @Autowired
+//    private AccessControlInterceptor accessControlInterceptor;
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(accessControlInterceptor)
+//                .excludePathPatterns("/api/auth/token")
+//                .excludePathPatterns("/api/letter-file/download/**")
+//                .excludePathPatterns("/api/notification-file/download/**")
+//                .excludePathPatterns("/swagger-ui.html")
+//                .excludePathPatterns("/swagger-ui/**")
+//                .excludePathPatterns("/v3/api-docs/**")
+//                .excludePathPatterns("/v3/api-docs.yaml");
+//    }
 }

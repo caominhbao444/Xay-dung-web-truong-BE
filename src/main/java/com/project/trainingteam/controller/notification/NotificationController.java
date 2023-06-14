@@ -21,12 +21,12 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/notification")
 public class NotificationController {
 
     private NotificationService notificationService;
 
-    @PostMapping("/v2/notification/create")
+    @PostMapping("/create")
     public ResponseEntity<NotificationDto> createdNotification(@RequestPart("notification") Notification notification, @RequestPart(value = "files",required = false)MultipartFile[] multipartFiles)throws Exception{
         try{
             NotificationDto result = notificationService.createdNotification(notification,multipartFiles);
@@ -36,7 +36,7 @@ public class NotificationController {
         }
     };
 
-    @PostMapping("/v3/notification/seen/{notificationId}")
+    @PostMapping("/seen/{notificationId}")
     public ResponseEntity<String> seenByUser(@PathVariable("notificationId")Long notificationId)throws Exception{
         try{
             String result = notificationService.seenByUser(notificationId);
@@ -46,7 +46,7 @@ public class NotificationController {
         }
     }
 
-    @PutMapping("/v2/notification/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<NotificationDto> updatedNotification(@PathVariable("id") Long id ,@RequestBody Notification notification)throws Exception{
         try{
             notification.setId(id);
@@ -57,7 +57,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<NotificationDto> getNotificationById(@PathVariable("id")Long id,@RequestBody Notification notification)throws Exception{
         try{
             notification.setId(id);
@@ -68,7 +68,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<NotificationDto>> getAllNotification(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                     @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                     @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -81,7 +81,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/dashboard/new")
+    @GetMapping("/dashboard/new")
     public ResponseEntity<List<NotificationDto>> getNewNotificationList()throws Exception{
         try{
             List<NotificationDto> result = notificationService.getNewNotificationList();
@@ -91,7 +91,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/dashboard/important")
+    @GetMapping("/dashboard/important")
     public ResponseEntity<List<NotificationDto>> getImportantNotificationList()throws Exception{
         try{
             List<NotificationDto> result = notificationService.getImportantNotificationList();
@@ -102,7 +102,7 @@ public class NotificationController {
     }
 
 
-    @GetMapping("/v3/notification/dashboard/unseen")
+    @GetMapping("/dashboard/unseen")
     public ResponseEntity<List<DashBoardUnSeenNotificationDto>> getNotificationUnSeenByCategoryName()throws Exception{
         try{
             List<DashBoardUnSeenNotificationDto> result = notificationService.getUnseenCountNotificationByCategoryName();
@@ -113,7 +113,7 @@ public class NotificationController {
     }
 
 
-    @GetMapping("/v3/notification/sidebar/faculty/{facultyName}")
+    @GetMapping("/sidebar/faculty/{facultyName}")
     public ResponseEntity<Page<NotificationDto>> getAllNotificationByFacultyName(@PathVariable("facultyName") String facultyName, @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                                  @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                                  @RequestParam(name = "direction", defaultValue = "ASC") String direction,
@@ -127,7 +127,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/sidebar/depart-center/{departCenterName}")
+    @GetMapping("/sidebar/depart-center/{departCenterName}")
     public ResponseEntity<Page<NotificationDto>> getAllNotificationByDepartCenterName(@PathVariable("departCenterName") String departCenterName, @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                                       @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                                       @RequestParam(name = "direction", defaultValue = "ASC") String direction,
@@ -141,7 +141,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/sidebar/category/{categoryName}")
+    @GetMapping("/sidebar/category/{categoryName}")
     public ResponseEntity<Page<NotificationDto>> getAllNotificationByCategoryName(@PathVariable("categoryName") String categoryName, @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                                       @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                                       @RequestParam(name = "direction", defaultValue = "ASC") String direction,
@@ -155,7 +155,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/page/category/{categoryName}")
+    @GetMapping("/page/category/{categoryName}")
     public ResponseEntity<Page<PageUnSeenNotificationDto>> getUnSeenNotificationByCategoryName(@PathVariable("categoryName") String categoryName, @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                                                @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                                                @RequestParam(name = "direction", defaultValue = "ASC") String direction,
@@ -169,7 +169,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/page/important")
+    @GetMapping("/page/important")
     public ResponseEntity<Page<NotificationDto>> getAllImportantNotification(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                              @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                              @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -182,7 +182,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/page/new")
+    @GetMapping("/page/new")
     public ResponseEntity<Page<NotificationDto>> getAllNewNotification(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                              @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                              @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -196,7 +196,7 @@ public class NotificationController {
     }
 
 
-    @GetMapping("/v3/notification/search")
+    @GetMapping("/search")
     public ResponseEntity<Page<NotificationDto>> getSearchNotification(@RequestBody SearchRequestNotificationDto searchRequestNotificationDto,
                                                                        @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                        @RequestParam(name = "pageSize", defaultValue = "20") int size,
@@ -208,7 +208,7 @@ public class NotificationController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/v3/notification/search/faculty/{facultyName}")
+    @GetMapping("/search/faculty/{facultyName}")
     public ResponseEntity<Page<NotificationDto>> getSearchNotificationByFacultyName(@PathVariable("facultyName") String facultyName,
                                                                                     @RequestBody SearchRequestNotificationDto searchRequestNotificationDto,
                                                                                     @RequestParam(name = "pageNumber", defaultValue = "0") int page,
@@ -222,7 +222,7 @@ public class NotificationController {
     }
 
 
-    @GetMapping("/v3/notification/search/depart-center/{departCenterName}")
+    @GetMapping("/search/depart-center/{departCenterName}")
     public ResponseEntity<Page<NotificationDto>> getSearchNotificationByDepartCenterName(
             @PathVariable("departCenterName") String departCenterName,
             @RequestBody SearchRequestNotificationDto searchRequestNotificationDto,
@@ -236,7 +236,7 @@ public class NotificationController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/v3/notification/search/category/{categoryName}")
+    @GetMapping("/search/category/{categoryName}")
     public ResponseEntity<Page<NotificationDto>> getSearchNotificationByCategoryName(
             @PathVariable("categoryName") String categoryName,
             @RequestBody SearchRequestNotificationDto searchRequestNotificationDto,
@@ -252,7 +252,7 @@ public class NotificationController {
 
 
 
-    @DeleteMapping("/v2/notification/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedNotification(@PathVariable("id")Long id)throws Exception{
         try{
             String result = notificationService.deletedNotification(id);
@@ -262,7 +262,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/v3/notification/test/{facultyName}")
+    @GetMapping("/test/{facultyName}")
     public ResponseEntity<List<Notification>> testEndpoint(@PathVariable("facultyName") String facultyName,
             @RequestBody SearchRequestNotificationDto searchRequestNotificationDto) {
         List<Notification> result = notificationService.test(facultyName,searchRequestNotificationDto);

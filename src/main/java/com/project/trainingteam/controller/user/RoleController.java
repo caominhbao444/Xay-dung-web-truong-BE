@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/role")
 public class RoleController {
     private RoleService roleService;
 
-    @PostMapping("/v1/role/create")
+    @PostMapping("/create")
     public ResponseEntity<RoleDto> createdRole(@RequestBody Role req) throws Exception {
         RoleDto createdRole = roleService.createdRole(req);
         return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v1/role/update/{id}")
+    @PutMapping("//update/{id}")
     public ResponseEntity<RoleDto> updatedRole(@PathVariable("id")Long id,  @RequestBody Role req) throws Exception {
         req.setId(id);
         RoleDto updatedRole = roleService.updatedRole(req);
@@ -31,7 +31,7 @@ public class RoleController {
     };
 
 
-    @GetMapping("/v1/role/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<RoleDto>> getAllRole(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                           @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                           @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -40,7 +40,7 @@ public class RoleController {
         return new ResponseEntity<>(role, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v1/role/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedRole(@PathVariable("id") Long id)throws Exception{
         roleService.deletedRole(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

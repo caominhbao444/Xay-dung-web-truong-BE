@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/exam")
 public class ExamController {
 
     private ExamService examService;
 
-    @PostMapping("/v2/create")
+    @PostMapping("/create")
     public ResponseEntity<ExamDto> createdExam(@RequestBody Exam req) throws Exception {
         ExamDto createdExam = examService.createdExam(req);
         return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v2/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ExamDto> updatedExam(@PathVariable("id")Long id, @RequestBody Exam req) throws Exception {
         req.setId(id);
         ExamDto updatedExam = examService.updatedExam(req);
@@ -32,7 +32,7 @@ public class ExamController {
     };
 
 
-    @GetMapping("/v2/exam/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<ExamDto>> getAllGroupLetter(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                   @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                   @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -41,7 +41,7 @@ public class ExamController {
         return new ResponseEntity<>(ExamDtoPage, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v2/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedGroupLetter(@PathVariable("id") Long id)throws Exception{
         examService.deletedExam(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

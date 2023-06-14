@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/letter-type")
 public class LetterTypeController {
 
     private LetterTypeService letterTypeService;
 
-    @PostMapping("/v2/letter-type/create")
+    @PostMapping("/create")
     public ResponseEntity<LetterTypeDto> createdLetterTypeDto(@RequestBody LetterType letterType) throws Exception {
         LetterTypeDto createdLetterTypeDto = letterTypeService.createLetterType(letterType);
         return new ResponseEntity<>(createdLetterTypeDto, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v2/letter-type/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<LetterTypeDto> updatedLetterType(@PathVariable("id")Long id , @RequestBody LetterType letterType)throws Exception{
         try{
             letterType.setId(id);
@@ -38,13 +38,13 @@ public class LetterTypeController {
     }
 
 
-    @GetMapping("/v2/letter-type/find/{letterNameType}")
+    @GetMapping("/find/{letterNameType}")
     public ResponseEntity<LetterTypeDto> findLetterTypeByLetterTypeName(@PathVariable("letterNameType") String letterNameType) throws Exception {
         LetterTypeDto findLetterTypeByLetterTypeName = letterTypeService.findLetterTypeByLetterTypeName(letterNameType);
         return new ResponseEntity<>(findLetterTypeByLetterTypeName, HttpStatus.CREATED);
     };
 
-    @GetMapping("/v2/letter-type/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<LetterTypeDto>> getAllLetterType(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                  @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                  @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -53,7 +53,7 @@ public class LetterTypeController {
         return new ResponseEntity<>(getAllLetterType, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v2/letter-type/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedGroupLetter(@PathVariable("id") Long id)throws Exception{
         letterTypeService.deletedLetterType(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/faculty")
 public class FacultyController {
 
     private FacultyService facultyService;
 
-    @PostMapping("/v1/faculty/create")
+    @PostMapping("/create")
     public ResponseEntity<FacultyDto> createdFaculty(@RequestBody Faculty req) throws Exception {
         FacultyDto createFaculty = facultyService.createdFaculty(req);
         return new ResponseEntity<>(createFaculty, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v1/faculty/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<FacultyDto> updateFaculty(@PathVariable("id")Long id,  @RequestBody Faculty req) throws Exception {
         req.setId(id);
         FacultyDto updatedFaculty = facultyService.updatedFaculty(req);
@@ -33,7 +33,7 @@ public class FacultyController {
     };
 
 
-    @GetMapping("/v1/faculty/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<FacultyDto>> getAllFaculty(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                      @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                      @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -42,7 +42,7 @@ public class FacultyController {
         return new ResponseEntity<>(faculty, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v1/faculty/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedFaculty(@PathVariable("id") Long id)throws Exception{
         facultyService.deletedFaculty(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

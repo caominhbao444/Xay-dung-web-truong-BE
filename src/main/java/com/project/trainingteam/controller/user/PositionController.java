@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/position")
 public class PositionController {
 
     private PositionService positionService;
 
-    @PostMapping("/v1/position/create")
+    @PostMapping("/create")
     public ResponseEntity<PositionDto> createdPosition(@RequestBody Position req) throws Exception {
         PositionDto createdPosition = positionService.createdPosition(req);
         return new ResponseEntity<>(createdPosition, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v1/position/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<PositionDto> updatedPosition(@PathVariable("id")Long id,  @RequestBody Position req) throws Exception {
         req.setId(id);
         PositionDto updatedPosition = positionService.updatedPosition(req);
         return new ResponseEntity<>(updatedPosition, HttpStatus.CREATED);
     };
 
-    @GetMapping("/v1/position/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<PositionDto>> getAllPosition(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                     @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                     @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -43,7 +43,7 @@ public class PositionController {
         return new ResponseEntity<>(positionDtoPage, HttpStatus.OK);
     };
 
-    @DeleteMapping("/v1/position/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedPosition(@PathVariable("id") Long id)throws Exception{
         positionService.deletedPosition(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

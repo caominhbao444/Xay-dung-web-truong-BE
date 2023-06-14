@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/letter-reason")
 public class LetterReasonController {
 
     private LetterReasonService letterReasonService;
 
-    @PostMapping("/v2/letter-reason/create")
+    @PostMapping("/create")
     public ResponseEntity<LetterReasonDto> createdLetterReason(@RequestBody LetterReason letterReason) throws Exception {
         try {
             LetterReasonDto letterReasonDto = letterReasonService.createdLetterReason(letterReason);
@@ -30,7 +30,7 @@ public class LetterReasonController {
     };
 
 
-    @PutMapping("/v2/letter-reason/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<LetterReasonDto> updatedLetterReason(@PathVariable("id") Long id, @RequestBody LetterReason letterReason) throws Exception {
         try {
             letterReason.setId(id);
@@ -41,7 +41,7 @@ public class LetterReasonController {
         }
     };
 
-    @GetMapping("/v2/letter-reason/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<LetterReasonDto>> getAllLetterReason(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                     @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                     @RequestParam(name = "direction", defaultValue = "ASC") String direction,
@@ -54,7 +54,7 @@ public class LetterReasonController {
         }
     };
 
-    @DeleteMapping("/v2/letter-reason/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedLetterReason (@PathVariable("id") Long id) throws Exception{
         try{
             letterReasonService.deletedLetterReason(id);

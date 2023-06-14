@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/user")
 public class UserController {
     private UserService userService;
-    @PostMapping("/v2/user/create")
+    @PostMapping("/create")
     public ResponseEntity<UserDto> createdUser(@RequestBody User req) throws Exception {
         UserDto createdUser = userService.createUser(req);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     };
 
-    @PutMapping("/v3/user/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<UserDto> updatedUser(@PathVariable("id")Long id,  @RequestBody User req) throws Exception {
         req.setId(id);
         UserDto updatedUser = userService.updateUser(req);
         return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     };
 
-    @GetMapping("/v1/user/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<UserDto>> getAllUsers( @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                       @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                       @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -38,13 +38,13 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     };
 
-    @GetMapping("/v2/user/find/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) throws Exception {
         UserDto user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/v2/user/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long id)throws Exception{
         userService.deletedUser(id);
         return new ResponseEntity<>("Delete successfully",HttpStatus.OK);

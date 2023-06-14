@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/depart-center")
 public class DepartCenterController {
 
     private DepartCenterService departCenterService;
 
-    @PostMapping("/v1/depart-center/create")
+    @PostMapping("/create")
     public ResponseEntity<DepartCenterDto> createdDepartCenter(@RequestBody DepartCenter departCenter)throws Exception{
         try{
             DepartCenterDto result = departCenterService.createdDepartCenter(departCenter);
@@ -28,7 +28,7 @@ public class DepartCenterController {
         }
     }
 
-    @PutMapping("/v1/depart-center/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<DepartCenterDto> updatedDepartCenter(@PathVariable("id")Long id,@RequestBody DepartCenter departCenter)throws Exception{
         try{
             departCenter.setId(id);
@@ -39,7 +39,7 @@ public class DepartCenterController {
         }
     }
 
-    @GetMapping("/v1/depart-center/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<DepartCenterDto>> getAllDepartCenter (@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                      @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                      @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -52,7 +52,7 @@ public class DepartCenterController {
         }
     };
 
-    @DeleteMapping("/v1/depart-center/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedDepartCenter(@PathVariable("id")Long id){
         try{
             String result = departCenterService.deletedDepartCenter(id);

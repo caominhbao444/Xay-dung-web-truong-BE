@@ -14,18 +14,18 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/score-board-type")
 public class ScoreBoardController {
 
     private ScoreBoardTypeService scoreBoardTypeService;
 
-    @PostMapping("/v2/score-board-type/create")
+    @PostMapping("/create")
     public ResponseEntity<ScoreBoardTypeDto> createdScoreBoardType(@RequestBody ScoreBoardType ScoreBoardType) throws Exception {
         ScoreBoardTypeDto createdScoreBoardType = scoreBoardTypeService.createdScoreBoardType(ScoreBoardType);
         return new ResponseEntity<>(createdScoreBoardType, HttpStatus.CREATED);
     };
 
-    @PostMapping("/v2/score-board-type/create-list/{letterTypeName}")
+    @PostMapping("/create-list/{letterTypeName}")
     public ResponseEntity<List<ScoreBoardType>> createdListScoreBoardType(@PathVariable("letterTypeId")Long letterTypeId,@PathVariable("letterTypeName")String letterTypeName,@RequestPart("scoreboard") ScoreBoardType[] scoreBoardTypeList) throws Exception {
         List<ScoreBoardType> createdScoreBoardTypeList = scoreBoardTypeService.createdListScoreBoardType(letterTypeId,letterTypeName,scoreBoardTypeList);
         return new ResponseEntity<>(createdScoreBoardTypeList, HttpStatus.CREATED);

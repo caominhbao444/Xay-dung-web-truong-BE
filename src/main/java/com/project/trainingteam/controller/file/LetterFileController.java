@@ -18,18 +18,18 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/letter-file")
 public class LetterFileController {
 
     private LetterFileService letterFileService;
 
-    @PostMapping("/v3/letter-file/upload-multiple")
+    @PostMapping("upload-multiple")
     public ResponseEntity<List<LetterFile>> uploadMultiFile(@RequestParam("files") MultipartFile[] multipartFiles, Long letterId, String letterTypeName)throws Exception{
         List<LetterFile> letterFileList = letterFileService.savedMultiLetterFile(multipartFiles,letterId,letterTypeName);
         return new ResponseEntity<>(letterFileList, HttpStatus.CREATED);
     }
 
-    @GetMapping("/v3/letter-file/download/{id}")
+    @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id) throws Exception {
         LetterFile letterFile = letterFileService.downloadLetterFile(id);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -39,7 +39,7 @@ public class LetterFileController {
         return ResponseEntity.ok().headers(httpHeaders).body(content);
     }
 
-    @GetMapping("/v2/letter-file/find/{letterId}")
+    @GetMapping("/find/{letterId}")
     public ResponseEntity<List<LetterFileDto>> findLetterFileUserByUserNameAndLetterId(@PathVariable("letterId")Long letterId) throws Exception {
         List<LetterFileDto> letterFileDtoList = letterFileService.findLetterFileUserByUserNameAndLetterId(letterId);
         return new ResponseEntity<>(letterFileDtoList,HttpStatus.OK);

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/category")
 public class CategoryController {
 
 
     private CategoryService categoryService;
 
-    @PostMapping("/v1/category/create")
+    @PostMapping("/create")
     public ResponseEntity<CategoryDto> createdCategory(@RequestBody Category category) throws Exception{
         try{
             CategoryDto result = categoryService.createdCategory(category);
@@ -31,7 +31,7 @@ public class CategoryController {
         }
     };
 
-    @PutMapping("/v1/category/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CategoryDto> updatedCategory(@PathVariable("id") Long id,@RequestBody Category category) throws Exception{
         try{
             category.setId(id);
@@ -42,7 +42,7 @@ public class CategoryController {
         }
     };
 
-    @GetMapping("/v1/category/all")
+    @GetMapping("/all")
     public ResponseEntity<Page<CategoryDto>> getAllCategory (@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                              @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                              @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -57,7 +57,7 @@ public class CategoryController {
     };
 
 
-    @DeleteMapping("/v1/category/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedCategory(@PathVariable("id") Long id){
         try{
             String result = categoryService.deletedCategory(id);

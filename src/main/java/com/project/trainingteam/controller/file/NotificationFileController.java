@@ -17,12 +17,12 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api")
+@RequestMapping("api/notification-file")
 public class NotificationFileController {
 
     private NotificationFileService notificationFileService;
 
-    @PostMapping("/v3/notification-file/upload-multiple/{notificationId}/{title}")
+    @PostMapping("/{notificationId}/{title}")
     public ResponseEntity<List<NotificationFile>> uploadNotificationFile(@RequestParam("files") MultipartFile[] multipartFiles, @PathVariable("notificationId") Long notificationId,@PathVariable("title") String notificationTitle)throws Exception{
         try{
             List<NotificationFile> result = notificationFileService.savedMultiNewsFile(multipartFiles, notificationId, notificationTitle);
@@ -32,7 +32,7 @@ public class NotificationFileController {
         }
     }
 
-    @GetMapping("/v2/notification-file/find/{notificationId}")
+    @GetMapping("/find/{notificationId}")
     public ResponseEntity<List<NotificationFileDto>> getNotificationFileByNotificationId(@PathVariable("notificationId") Long notificationId)throws Exception{
 //        try{
 //            List<NotificationFile> result = notificationFileService.getNotificationFileByNotificationId(notificationId);
@@ -45,7 +45,7 @@ public class NotificationFileController {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
-    @GetMapping("/v3/notification-file/download/{id}")
+    @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadNotificationFile(@PathVariable Long id) throws Exception {
         NotificationFile notificationFile = notificationFileService.downloadNotificationFile(id);
         HttpHeaders httpHeaders = new HttpHeaders();
