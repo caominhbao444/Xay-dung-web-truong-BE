@@ -12,4 +12,5 @@ public interface ScoreBoardRequestService {
     List<ScoreBoardRequest> createdListScoreBoardRequest(Long letterId,String letterTypeName, ScoreBoardRequest[] scoreBoardRequests);
 
     List<ScoreBoardRequest> findScoreBoardRequestByLetterId(@Param("letterId") Long letterId);
+
 }

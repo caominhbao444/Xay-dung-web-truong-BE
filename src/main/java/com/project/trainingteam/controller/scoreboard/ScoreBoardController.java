@@ -6,6 +6,9 @@ import com.project.trainingteam.entities.letter.Semester;
 import com.project.trainingteam.entities.scoreboard.ScoreBoardType;
 import com.project.trainingteam.service.inf.scoreboard.ScoreBoardTypeService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +39,26 @@ public class ScoreBoardController {
 //        List<ScoreBoardType> findScoreBoardTypeByLetterTypeName = scoreBoardTypeService.findScoreBoardTypeByLetterTypeName(letterTypeName);
 //        return new ResponseEntity<>(findScoreBoardTypeByLetterTypeName,HttpStatus.OK);
 //    }
+
+    @PutMapping("update/{id}")
+    public ResponseEntity<ScoreBoardTypeDto> updateScoreBoardType(@PathVariable("id")Long id,ScoreBoardType scoreBoardType){
+        scoreBoardType.setId(id);
+        ScoreBoardTypeDto result = scoreBoardTypeService.updatedScoreBoardType(scoreBoardType);
+        return new ResponseEntity<>(result,HttpStatus.CREATED);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<ScoreBoardTypeDto>> getPageScoreBoardType(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
+                                                                         @RequestParam(name = "pageSize", defaultValue = "20") int size,
+                                                                         @RequestParam(name="direction",defaultValue = "ASC") String direction,
+                                                                         @RequestParam(name = "content", defaultValue = "id") String content){
+        Page<ScoreBoardTypeDto> result = scoreBoardTypeService.getAllScoreBoardTypeWithAction(PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(direction),content)));
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletedScoreBoardType(@PathVariable("id") Long id){
+        String result = scoreBoardTypeService.deletedScoreBoardType(id);
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
 }
