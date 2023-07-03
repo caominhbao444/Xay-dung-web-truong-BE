@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -67,7 +68,20 @@ public class ExamServiceImpl implements ExamService {
         }else{
             throw new Exception("Không tìm thấy Page Exam");
         }
-    };
+    }
+
+    @Override
+    public ExamDto getExamById(Long id) throws Exception {
+        Optional<Exam> optional = examRepo.findById(id);
+        if(optional.isPresent()){
+            Exam exam = optional.get();
+            return modelMapper.map(exam,ExamDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Exam");
+        }
+    }
+
+    ;
 
     @Override
     public String deletedExam(Long id) {

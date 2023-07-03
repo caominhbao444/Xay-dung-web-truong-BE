@@ -14,6 +14,8 @@ public interface SemesterService {
 
     Page<SemesterDto> getAllSemester(Pageable pageable) throws Exception;
 
+    SemesterDto getSemesterById(Long id)throws Exception;
+
     String deletedSemester(Long id);
 
 

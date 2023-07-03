@@ -155,7 +155,7 @@ public class NotificationController {
         }
     }
 
-    @GetMapping("/page/category/{categoryName}")
+    @GetMapping("/page/unseen/category/{categoryName}")
     public ResponseEntity<Page<PageUnSeenNotificationDto>> getUnSeenNotificationByCategoryName(@PathVariable("categoryName") String categoryName, @RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                                                @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                                                @RequestParam(name = "direction", defaultValue = "ASC") String direction,

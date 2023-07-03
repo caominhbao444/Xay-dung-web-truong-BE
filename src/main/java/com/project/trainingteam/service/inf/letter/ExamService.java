@@ -18,6 +18,8 @@ public interface ExamService {
 
     Page<ExamDto> getAllExam(Pageable pageable) throws Exception;
 
+    ExamDto getExamById(Long id)throws Exception;
+
     String deletedExam(Long id);
 
     List<Exam> createdListExam(List<Exam> examList);

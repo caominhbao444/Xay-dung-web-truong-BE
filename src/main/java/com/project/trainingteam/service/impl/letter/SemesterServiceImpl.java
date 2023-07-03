@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,7 +61,20 @@ public class SemesterServiceImpl implements SemesterService {
         }else{
             throw new Exception("Không tìm thấy List Semester");
         }
-    };
+    }
+
+    @Override
+    public SemesterDto getSemesterById(Long id) throws Exception {
+        Optional<Semester> optionalSemester =semesterRepo.findById(id);
+        if(optionalSemester.isPresent()){
+            Semester semester = optionalSemester.get();
+            return modelMapper.map(semester,SemesterDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Semester");
+        }
+    }
+
+    ;
 
     //findAll
     //

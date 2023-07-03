@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +61,17 @@ public class RoleServiceImpl implements RoleService {
             return new PageImpl<>(roleDtoList,pageable,rolePage.getTotalElements());
         }else{
             throw new Exception("Không tìm thấy List Role");
+        }
+    }
+
+    @Override
+    public RoleDto getRoleById(Long id) throws Exception {
+        Optional<Role> optionalRole = roleRepo.findById(id);
+        if(optionalRole.isPresent()){
+            Role role = optionalRole.get();
+            return modelMapper.map(role,RoleDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Role");
         }
     };
 

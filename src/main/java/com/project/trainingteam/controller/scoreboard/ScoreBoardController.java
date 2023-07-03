@@ -40,14 +40,17 @@ public class ScoreBoardController {
 //        return new ResponseEntity<>(findScoreBoardTypeByLetterTypeName,HttpStatus.OK);
 //    }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity<ScoreBoardTypeDto> updateScoreBoardType(@PathVariable("id")Long id,ScoreBoardType scoreBoardType){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ScoreBoardTypeDto> updateScoreBoardType(@PathVariable("id") Long id, @RequestBody ScoreBoardType scoreBoardType) throws Exception {
+        if (scoreBoardType == null) {
+            throw new IllegalArgumentException("Invalid request body");
+        }
         scoreBoardType.setId(id);
         ScoreBoardTypeDto result = scoreBoardTypeService.updatedScoreBoardType(scoreBoardType);
-        return new ResponseEntity<>(result,HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @GetMapping("/page")
+    @GetMapping("/all")
     public ResponseEntity<Page<ScoreBoardTypeDto>> getPageScoreBoardType(@RequestParam(name = "pageNumber", defaultValue = "0") int page,
                                                                          @RequestParam(name = "pageSize", defaultValue = "20") int size,
                                                                          @RequestParam(name="direction",defaultValue = "ASC") String direction,
@@ -56,6 +59,16 @@ public class ScoreBoardController {
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<ScoreBoardTypeDto> getScoreBoardById(@PathVariable("id")Long id)throws Exception{
+        try{
+            ScoreBoardTypeDto result = scoreBoardTypeService.getScoreBoardTypeById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedScoreBoardType(@PathVariable("id") Long id){
         String result = scoreBoardTypeService.deletedScoreBoardType(id);

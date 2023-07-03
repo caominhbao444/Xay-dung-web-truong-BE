@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,13 +34,19 @@ public class ScoreBoardTypeServiceImpl implements ScoreBoardTypeService {
     }
 
     @Override
-    public ScoreBoardTypeDto updatedScoreBoardType(ScoreBoardType scoreBoardType) {
-        ScoreBoardType findScoreBoardType = scoreBoardTypeRepo.findById(scoreBoardType.getId()).get();
-        findScoreBoardType.setScoreBoardTypeName(scoreBoardType.getScoreBoardTypeName());
-        findScoreBoardType.setScoreBoardTypePrice(scoreBoardType.getScoreBoardTypePrice());
-        findScoreBoardType.setScoreBoardTypeDesc(scoreBoardType.getScoreBoardTypeDesc());
-        ScoreBoardType savedScoreBoardType = scoreBoardTypeRepo.save(findScoreBoardType);
-        return modelMapper.map(savedScoreBoardType,ScoreBoardTypeDto.class);
+    public ScoreBoardTypeDto updatedScoreBoardType(ScoreBoardType scoreBoardType) throws Exception {
+        try{
+            ScoreBoardType findScoreBoardType = scoreBoardTypeRepo.findById(scoreBoardType.getId()).orElseThrow(() -> new Exception("không tìm thấy Score Board Type"));
+            findScoreBoardType.setScoreBoardTypeName(scoreBoardType.getScoreBoardTypeName());
+            findScoreBoardType.setScoreBoardTypePrice(scoreBoardType.getScoreBoardTypePrice());
+            findScoreBoardType.setScoreBoardTypeDesc(scoreBoardType.getScoreBoardTypeDesc());
+            ScoreBoardType savedScoreBoardType = scoreBoardTypeRepo.save(findScoreBoardType);
+            return modelMapper.map(savedScoreBoardType, ScoreBoardTypeDto.class);
+        }catch (Exception e){
+            throw new Exception("không thay đổi được");
+        }
+
+
     }
 
     @Override
@@ -68,6 +75,17 @@ public class ScoreBoardTypeServiceImpl implements ScoreBoardTypeService {
         List<ScoreBoardType> scoreBoardTypeList = scoreBoardTypePage.getContent();
         List<ScoreBoardTypeDto> scoreBoardTypeDtoList = scoreBoardTypeList.stream().map(result -> modelMapper.map(result,ScoreBoardTypeDto.class)).collect(Collectors.toList());
         return new PageImpl<>(scoreBoardTypeDtoList,pageable,scoreBoardTypePage.getTotalElements());
+    }
+
+    @Override
+    public ScoreBoardTypeDto getScoreBoardTypeById(Long id) throws Exception {
+        Optional<ScoreBoardType> optionalScoreBoardType = scoreBoardTypeRepo.findById(id);
+        if(optionalScoreBoardType.isPresent()){
+            ScoreBoardType scoreBoardType = optionalScoreBoardType.get();
+            return modelMapper.map(scoreBoardType,ScoreBoardTypeDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Score Board Type");
+        }
     }
 
     @Override

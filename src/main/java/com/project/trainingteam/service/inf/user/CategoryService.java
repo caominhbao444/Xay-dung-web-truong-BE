@@ -15,5 +15,7 @@ public interface CategoryService {
 
     Page<CategoryDto> getAllCategory(Pageable pageable)throws Exception;
 
+    CategoryDto getCategoryById(Long id)throws Exception;
+
     String deletedCategory(Long id)throws Exception;
 }

@@ -12,13 +12,18 @@ import java.util.List;
 public interface ScoreBoardTypeService {
     ScoreBoardTypeDto createdScoreBoardType(ScoreBoardType scoreBoardType);
 
-    ScoreBoardTypeDto updatedScoreBoardType(ScoreBoardType scoreBoardType);
+    ScoreBoardTypeDto updatedScoreBoardType(ScoreBoardType scoreBoardType) throws Exception;
 
+
+    //Chưa cần quan tâm đến
     List<ScoreBoardType> createdListScoreBoardType(Long letterTypeId,String letterTypeName,ScoreBoardType[] scoreBoardTypeList);
 
+    //Không sử dụng
     List<ScoreBoardType> findScoreBoardTypeByLetterTypeName(String letterTypeName);
 
     Page<ScoreBoardTypeDto> getAllScoreBoardTypeWithAction(Pageable pageable);
+
+    ScoreBoardTypeDto getScoreBoardTypeById (Long id)throws Exception;
 
     String deletedScoreBoardType(Long id);
 

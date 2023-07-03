@@ -56,6 +56,16 @@ public class CategoryController {
         }
     };
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable("id")Long id)throws Exception{
+        try{
+            CategoryDto result = categoryService.getCategoryById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedCategory(@PathVariable("id") Long id){

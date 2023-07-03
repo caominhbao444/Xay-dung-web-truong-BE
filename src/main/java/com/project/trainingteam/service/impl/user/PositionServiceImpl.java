@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +61,17 @@ public class PositionServiceImpl implements PositionService {
             return new PageImpl<>(positionDtoList,pageable,positionPage.getTotalElements());
         }else{
             throw new Exception("Không tìm thấy List Position");
+        }
+    }
+
+    @Override
+    public PositionDto getPositionById(Long id) throws Exception {
+        Optional<Position> optionalPosition = positionRepo.findById(id);
+        if(optionalPosition.isPresent()){
+            Position position = optionalPosition.get();
+            return modelMapper.map(position,PositionDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Position");
         }
     };
 

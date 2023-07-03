@@ -42,6 +42,16 @@ public class FacultyController {
         return new ResponseEntity<>(faculty, HttpStatus.OK);
     };
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<FacultyDto> getFacultyById(@PathVariable("id")Long id)throws Exception{
+        try{
+            FacultyDto result = facultyService.getFacultyById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedFaculty(@PathVariable("id") Long id)throws Exception{
         facultyService.deletedFaculty(id);

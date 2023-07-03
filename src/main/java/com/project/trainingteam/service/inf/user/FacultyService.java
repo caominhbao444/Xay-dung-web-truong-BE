@@ -16,5 +16,7 @@ public interface FacultyService {
 
     Page<FacultyDto> getAllFaculty(Pageable pageable) throws Exception;
 
+    FacultyDto getFacultyById(Long id)throws Exception;
+
     String deletedFaculty(Long id);
 }

@@ -40,6 +40,16 @@ public class SemesterController {
         return new ResponseEntity<>(semesterDtoPage, HttpStatus.OK);
     };
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<SemesterDto> getSemesterById(@PathVariable("id")Long id)throws Exception{
+        try{
+            SemesterDto result = semesterService.getSemesterById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedSemester(@PathVariable("id") Long id)throws Exception{
         semesterService.deletedSemester(id);

@@ -100,9 +100,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long id) throws Exception {
         Optional<User> optionalUser = userRepo.findById(id);
-        if(optionalUser != null){
-            return modelMapper.map(optionalUser,UserDto.class);
-        }else{
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            return modelMapper.map(user, UserDto.class);
+        } else {
             throw new Exception("không tìm thấy User");
         }
     };

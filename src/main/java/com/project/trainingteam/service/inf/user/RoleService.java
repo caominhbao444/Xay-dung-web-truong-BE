@@ -17,5 +17,7 @@ public interface RoleService {
 
     Page<RoleDto> getAllRole(Pageable pageable) throws Exception;
 
+    RoleDto getRoleById(Long id ) throws Exception;
+
     String deletedRole(Long id);
 }

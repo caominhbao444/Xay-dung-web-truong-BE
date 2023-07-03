@@ -23,7 +23,7 @@ public class RoleController {
         return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
     };
 
-    @PutMapping("//update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<RoleDto> updatedRole(@PathVariable("id")Long id,  @RequestBody Role req) throws Exception {
         req.setId(id);
         RoleDto updatedRole = roleService.updatedRole(req);
@@ -39,6 +39,16 @@ public class RoleController {
         Page<RoleDto> role = roleService.getAllRole(PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(direction),content)));
         return new ResponseEntity<>(role, HttpStatus.OK);
     };
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<RoleDto> getRoleById(@PathVariable("id")Long id)throws Exception{
+        try{
+            RoleDto result = roleService.getRoleById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedRole(@PathVariable("id") Long id)throws Exception{

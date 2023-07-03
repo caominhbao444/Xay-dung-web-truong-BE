@@ -24,7 +24,7 @@ public class ExamController {
         return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     };
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ExamDto> updatedExam(@PathVariable("id")Long id, @RequestBody Exam req) throws Exception {
         req.setId(id);
         ExamDto updatedExam = examService.updatedExam(req);
@@ -41,7 +41,17 @@ public class ExamController {
         return new ResponseEntity<>(ExamDtoPage, HttpStatus.OK);
     };
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/find/{id}")
+    public ResponseEntity<ExamDto> getExamById(@PathVariable("id")Long id)throws Exception{
+        try{
+            ExamDto result = examService.getExamById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedGroupLetter(@PathVariable("id") Long id)throws Exception{
         examService.deletedExam(id);
         return new ResponseEntity<>("Deleted Thành Công",HttpStatus.OK);

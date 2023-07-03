@@ -22,7 +22,7 @@ public class NotificationFileController {
 
     private NotificationFileService notificationFileService;
 
-    @PostMapping("/{notificationId}/{title}")
+    @PostMapping("/upload/{notificationId}/{title}")
     public ResponseEntity<List<NotificationFile>> uploadNotificationFile(@RequestParam("files") MultipartFile[] multipartFiles, @PathVariable("notificationId") Long notificationId,@PathVariable("title") String notificationTitle)throws Exception{
         try{
             List<NotificationFile> result = notificationFileService.savedMultiNewsFile(multipartFiles, notificationId, notificationTitle);

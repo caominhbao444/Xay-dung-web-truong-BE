@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,8 +24,8 @@ public class LetterFileController {
 
     private LetterFileService letterFileService;
 
-    @PostMapping("upload-multiple")
-    public ResponseEntity<List<LetterFile>> uploadMultiFile(@RequestParam("files") MultipartFile[] multipartFiles, Long letterId, String letterTypeName)throws Exception{
+    @PostMapping("/upload/{letterId}/{letterTypeName}")
+    public ResponseEntity<List<LetterFile>> uploadMultiFile(@RequestParam("files") MultipartFile[] multipartFiles, @PathVariable("letterId") Long letterId, @PathVariable("letterTypeName") String letterTypeName)throws Exception{
         List<LetterFile> letterFileList = letterFileService.savedMultiLetterFile(multipartFiles,letterId,letterTypeName);
         return new ResponseEntity<>(letterFileList, HttpStatus.CREATED);
     }

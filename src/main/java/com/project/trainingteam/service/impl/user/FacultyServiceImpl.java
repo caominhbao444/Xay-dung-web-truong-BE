@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +61,17 @@ public class FacultyServiceImpl implements FacultyService {
             return new PageImpl<>(facultyDtoList,pageable,facultyPage.getTotalElements());
         }else{
             throw new Exception("Không tìm thấy List Faculty");
+        }
+    }
+
+    @Override
+    public FacultyDto getFacultyById(Long id) throws Exception {
+        Optional<Faculty> optionalFaculty = facultyRepo.findById(id);
+        if(optionalFaculty.isPresent()){
+            Faculty faculty = optionalFaculty.get();
+            return modelMapper.map(faculty,FacultyDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Faculty");
         }
     };
 

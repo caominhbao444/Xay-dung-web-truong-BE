@@ -17,5 +17,7 @@ public interface PositionService {
 
     Page<PositionDto> getAllPosition(Pageable pageable) throws Exception;
 
+    PositionDto getPositionById(Long id)throws Exception;
+
     String deletedPosition(Long id);
 }

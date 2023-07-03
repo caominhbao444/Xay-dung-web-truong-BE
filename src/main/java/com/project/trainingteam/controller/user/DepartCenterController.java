@@ -33,7 +33,7 @@ public class DepartCenterController {
         try{
             departCenter.setId(id);
             DepartCenterDto result = departCenterService.updatedDepartCenter(departCenter);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(result,HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
@@ -51,6 +51,16 @@ public class DepartCenterController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     };
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<DepartCenterDto> getDepartCenterById(@PathVariable("id")Long id)throws Exception{
+        try{
+            DepartCenterDto result = departCenterService.getDepartCenterById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedDepartCenter(@PathVariable("id")Long id){

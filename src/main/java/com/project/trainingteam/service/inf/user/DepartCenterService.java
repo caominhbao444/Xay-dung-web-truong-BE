@@ -15,5 +15,7 @@ public interface DepartCenterService {
 
     Page<DepartCenterDto> getAllDepartCenter(Pageable pageable) throws Exception;
 
+    DepartCenterDto getDepartCenterById(Long id) throws Exception;
+
     String deletedDepartCenter(Long id) throws Exception;
 }

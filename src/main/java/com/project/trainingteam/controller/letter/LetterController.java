@@ -31,7 +31,7 @@ public class LetterController {
     };
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Letter> updatedLetter(@PathVariable("id")Long id , @RequestPart("letter")Letter letter){
+    public ResponseEntity<Letter> updatedLetter(@PathVariable("id")Long id , @RequestBody Letter letter){
         letter.setId(id);
         Letter updatedLetter = letterService.updateLetter(letter);
         return new ResponseEntity<>(updatedLetter,HttpStatus.CREATED);

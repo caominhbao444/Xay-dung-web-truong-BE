@@ -32,23 +32,26 @@ public class ScoreBoardRequestServiceImpl implements ScoreBoardRequestService {
         List<ScoreBoardType> scoreBoardTypeList = scoreBoardTypeRepo.findAllScoreBoardTypeByAction();
         List<ScoreBoardRequest> scoreBoardRequestList = new ArrayList<>();
 
-        int length = Math.min(scoreBoardTypeList.size(), scoreBoardRequest.length);
+        if (scoreBoardRequest != null && scoreBoardRequest.length > 0) {
+            int length = Math.min(scoreBoardTypeList.size(), scoreBoardRequest.length);
 
-        for (int i = 0; i < length; i++) {
-            ScoreBoardType scoreBoardType = scoreBoardTypeList.get(i);
-            ScoreBoardRequest scoreBoardRequestItem = scoreBoardRequest[i];
+            for (int i = 0; i < length; i++) {
+                ScoreBoardType scoreBoardType = scoreBoardTypeList.get(i);
+                ScoreBoardRequest scoreBoardRequestItem = scoreBoardRequest[i];
 
-            ScoreBoardTypeDto scoreBoardTypeDto = modelMapper.map(scoreBoardType, ScoreBoardTypeDto.class);
-            ScoreBoardRequest mappedScoreBoardRequest = modelMapper.map(scoreBoardTypeDto, ScoreBoardRequest.class);
-            mappedScoreBoardRequest.setLetterId(letterId);
-            mappedScoreBoardRequest.setLetterTypeName(letterTypeName);
-            mappedScoreBoardRequest.setScoreBoardTypeQuantity(scoreBoardRequestItem.getScoreBoardTypeQuantity());
-            mappedScoreBoardRequest.setScoreBoardTypePrice(scoreBoardRequestItem.getScoreBoardTypePrice());
+                ScoreBoardTypeDto scoreBoardTypeDto = modelMapper.map(scoreBoardType, ScoreBoardTypeDto.class);
+                ScoreBoardRequest mappedScoreBoardRequest = modelMapper.map(scoreBoardTypeDto, ScoreBoardRequest.class);
+                mappedScoreBoardRequest.setLetterId(letterId);
+                mappedScoreBoardRequest.setLetterTypeName(letterTypeName);
+                mappedScoreBoardRequest.setScoreBoardTypeQuantity(scoreBoardRequestItem.getScoreBoardTypeQuantity());
+                mappedScoreBoardRequest.setScoreBoardTypePrice(scoreBoardRequestItem.getScoreBoardTypePrice());
 
-            ScoreBoardRequest savedScoreBoardRequest = scoreBoardRequestRepo.save(mappedScoreBoardRequest);
-            scoreBoardRequestList.add(savedScoreBoardRequest);
+                ScoreBoardRequest savedScoreBoardRequest = scoreBoardRequestRepo.save(mappedScoreBoardRequest);
+                scoreBoardRequestList.add(savedScoreBoardRequest);
+            }
+        } else {
+            return null;
         }
-
         return scoreBoardRequestList;
     }
 
@@ -56,7 +59,5 @@ public class ScoreBoardRequestServiceImpl implements ScoreBoardRequestService {
     public List<ScoreBoardRequest> findScoreBoardRequestByLetterId(Long letterId) {
         List<ScoreBoardRequest> scoreBoardRequestList = scoreBoardRequestRepo.findScoreBoardRequestByLetterId(letterId);
         return scoreBoardRequestList;
-    }
-
-    ;
+    };
 }

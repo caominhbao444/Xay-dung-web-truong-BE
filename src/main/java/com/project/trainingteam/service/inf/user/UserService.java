@@ -19,7 +19,4 @@ public interface UserService {
 
     String deletedUser(Long id);
 
-
-
-
 }

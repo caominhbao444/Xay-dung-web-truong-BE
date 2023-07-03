@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -66,6 +67,17 @@ public class CategoryServiceImpl implements CategoryService {
             throw new Exception("Không thể tìm Category Page");
         }
     }
+
+    @Override
+    public CategoryDto getCategoryById(Long id) throws Exception {
+        Optional<Category> optionalCategory = categoryRepo.findById(id);
+        if(optionalCategory.isPresent()){
+            Category category = optionalCategory.get();
+            return modelMapper.map(category,CategoryDto.class);
+        }else{
+            throw new Exception("Không tìm thấy Category");
+        }
+    };
 
     @Override
     public String deletedCategory(Long id) throws Exception {

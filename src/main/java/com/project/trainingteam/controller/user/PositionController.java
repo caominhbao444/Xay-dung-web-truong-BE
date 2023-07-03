@@ -43,6 +43,16 @@ public class PositionController {
         return new ResponseEntity<>(positionDtoPage, HttpStatus.OK);
     };
 
+    @GetMapping("/find/{id}")
+    public ResponseEntity<PositionDto> getPositionById(@PathVariable("id")Long id) throws Exception{
+        try{
+            PositionDto result = positionService.getPositionById(id);
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletedPosition(@PathVariable("id") Long id)throws Exception{
         positionService.deletedPosition(id);

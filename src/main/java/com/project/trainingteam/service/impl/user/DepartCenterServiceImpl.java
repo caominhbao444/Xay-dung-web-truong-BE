@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,6 +64,17 @@ public class DepartCenterServiceImpl implements DepartCenterService {
             throw new Exception("Không thể tìm DepartCenter Page");
         }
     }
+
+    @Override
+    public DepartCenterDto getDepartCenterById(Long id) throws Exception {
+        Optional<DepartCenter> optionalDepartCenter = departCenterRepo.findById(id);
+        if(optionalDepartCenter.isPresent()){
+            DepartCenter departCenter = optionalDepartCenter.get();
+            return modelMapper.map(departCenter,DepartCenterDto.class);
+        }else{
+            throw new Exception("Không tìm thấy DepartCenter");
+        }
+    };
 
     @Override
     public String deletedDepartCenter(Long id) throws Exception {
