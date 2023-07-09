@@ -17,10 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +35,7 @@ public class LetterFileServiceImpl implements LetterFileService {
         List<LetterFile> fileUpLoad = new ArrayList<>();
         Arrays.stream(multipartFiles).forEach(file -> {
             try {
-                String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
                 String downloadUrl = "";
                 LetterFile f = new LetterFile();
                 f.setFileName(fileName);

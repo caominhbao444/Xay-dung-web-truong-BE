@@ -1,5 +1,6 @@
 package com.project.trainingteam.config.security;
 
+import com.project.trainingteam.dto.user.UserDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,19 +60,47 @@ public class JwtProvider {
         return null;
     }
 
-    public String generateToken(String username){
+//    public String generateToken(String username, String fullname, String classUser, String major, String faculty, String phone, String roleName) {
+//        // Create Key
+//        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+//
+//        // Generate Token
+//        Date currentDate = new Date();
+//        Date expiration = new Date(currentDate.getTime() + jwtExpiration);
+//
+//        return Jwts.builder()
+//                .claim("fullname", fullname)
+//                .claim("classUser", classUser)
+//                .claim("major", major)
+//                .claim("faculty", faculty)
+//                .claim("phone", phone)
+//                .claim("roleName", roleName)
+//                .setIssuedAt(currentDate)
+//                .setExpiration(expiration)
+//                .signWith(key,SignatureAlgorithm.HS256)
+//                .compact();
+//    }
 
-        //Create Key
-        Key key= Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        //Generate Token
-        var currentDate = new Date();
-        var expiration = new Date(currentDate.getTime() + jwtExpiration);
+    public String generateToken(String username, String fullname, String classUser, String major, String faculty, String phone, String roleName) {
+        // Create Key
+        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+
+        // Generate Token
+        Date currentDate = new Date();
+        Date expiration = new Date(currentDate.getTime() + jwtExpiration);
 
         return Jwts.builder()
-                .setSubject(username)
+                .claim("username",username)
+                .claim("fullname", fullname)
+                .claim("classUser", classUser)
+                .claim("major", major)
+                .claim("faculty", faculty)
+                .claim("phone", phone)
+                .claim("roleName", roleName)
                 .setIssuedAt(currentDate)
                 .setExpiration(expiration)
-                .signWith(key)
+                .signWith(key,SignatureAlgorithm.HS256)
                 .compact();
     }
+
 }

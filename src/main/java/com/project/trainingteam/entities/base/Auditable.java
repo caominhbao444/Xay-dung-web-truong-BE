@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,8 @@ import java.util.TimeZone;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable {
+
+
     @Column(updatable = false)
     @CreatedBy
     protected String createdBy;
@@ -38,5 +41,7 @@ public class Auditable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     protected Date lastModifiedDate;
+
+
 
 }

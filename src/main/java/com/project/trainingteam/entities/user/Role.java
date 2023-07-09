@@ -29,4 +29,5 @@ public class Role extends Auditable {
     private String roleDesc;
 
     private boolean action = true;
+
 }

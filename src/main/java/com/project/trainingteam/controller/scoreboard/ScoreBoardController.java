@@ -1,8 +1,5 @@
 package com.project.trainingteam.controller.scoreboard;
-
-import com.project.trainingteam.dto.letter.SemesterDto;
 import com.project.trainingteam.dto.scoreboard.ScoreBoardTypeDto;
-import com.project.trainingteam.entities.letter.Semester;
 import com.project.trainingteam.entities.scoreboard.ScoreBoardType;
 import com.project.trainingteam.service.inf.scoreboard.ScoreBoardTypeService;
 import lombok.AllArgsConstructor;
@@ -18,14 +15,16 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/score-board-type")
-public class ScoreBoardController {
+public class ScoreBoardController{
 
     private ScoreBoardTypeService scoreBoardTypeService;
+
+
 
     @PostMapping("/create")
     public ResponseEntity<ScoreBoardTypeDto> createdScoreBoardType(@RequestBody ScoreBoardType ScoreBoardType) throws Exception {
         ScoreBoardTypeDto createdScoreBoardType = scoreBoardTypeService.createdScoreBoardType(ScoreBoardType);
-        return new ResponseEntity<>(createdScoreBoardType, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdScoreBoardType,HttpStatus.CREATED);
     };
 
     @PostMapping("/create-list/{letterTypeName}")
