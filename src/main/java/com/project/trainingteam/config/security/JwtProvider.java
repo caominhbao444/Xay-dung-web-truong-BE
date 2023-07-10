@@ -90,6 +90,7 @@ public class JwtProvider {
         Date expiration = new Date(currentDate.getTime() + jwtExpiration);
 
         return Jwts.builder()
+                .setSubject(username)
                 .claim("username",username)
                 .claim("fullname", fullname)
                 .claim("classUser", classUser)

@@ -48,8 +48,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/token").permitAll()
                 .requestMatchers("/api/letter-file/download/**").permitAll()
                 .requestMatchers("/api/notification-file/download/**").permitAll()
-                .requestMatchers("/api/role/all").permitAll()
-
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated();
 
