@@ -43,6 +43,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.exceptionHandling()
                 .authenticationEntryPoint(jwtAuthEntryPoint);
+
+        http.cors();
         // Authorize http requests
         http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/token").permitAll()
