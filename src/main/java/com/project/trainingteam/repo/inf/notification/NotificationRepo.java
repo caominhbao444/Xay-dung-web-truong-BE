@@ -18,6 +18,8 @@ public interface NotificationRepo extends JpaRepository<Notification,Long> {
     Notification findNotificationById(Long id);
 
 
+
+
     @Query("SELECT n FROM Notification n WHERE n.checkNew = true AND n.checkImportant = false ORDER BY n.createdDate LIMIT 5")
     List<Notification> findNewNotification();
 
@@ -45,6 +47,10 @@ public interface NotificationRepo extends JpaRepository<Notification,Long> {
             "GROUP BY id,n.notification_title, n.notification_content, n.faculty_name, n.depart_center_name, n.created_date,n.last_modified_date " +
             "ORDER BY n.created_date", nativeQuery = true)
     Page<Object[]> getUnSeenNotificationByCategoryName(String categoryName, Pageable pageable);
+
+
+    @Query("SELECT n FROM Notification n")
+    Page<Notification> getAllNotification(Pageable pageable);
 
 
     @Query("SELECT n FROM Notification n WHERE n.checkImportant = true ORDER BY n.createdDate")

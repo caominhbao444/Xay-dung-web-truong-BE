@@ -158,7 +158,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Page<NotificationDto> getAllNotification(Pageable pageable) throws Exception {
 
         try {
-            Page<Notification> notificationPage = notificationRepo.findAll(pageable);
+            Page<Notification> notificationPage = notificationRepo.getAllNotification(pageable);
             List<Notification> notificationList = notificationPage.getContent();
             List<NotificationDto> notificationDtoList = notificationList.stream().map(result -> modelMapper.map(result, NotificationDto.class)).collect(Collectors.toList());
             if (notificationDtoList != null) {
